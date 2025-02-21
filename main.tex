@@ -1,0 +1,204 @@
+\documentclass[10pt, openany, a5paper]{book}
+% Set page size and margins
+\usepackage[a5paper,top=1.5cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{fouriernc}
+\usepackage{graphicx}
+
+\graphicspath{{imagens/}} % Define o caminho padrão
+
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\usepackage{lipsum}
+\usepackage{tocloft}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usetikzlibrary{shapes, arrows.meta, positioning, backgrounds} % Bibliotecas úteis
+
+\pgfplotsset{compat=newest}
+\usetikzlibrary{shapes.geometric, calc, arrows, shapes, trees}
+\usetikzlibrary{arrows.meta}
+\usepackage{tikz-3dplot} % Pacote para desenhos 3D
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins,raster}
+\usepackage{physics}
+\usepackage{eso-pic}
+\usepackage{ragged2e}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage[shortlabels]{enumitem}
+\usepackage{listings}
+
+\lstset{
+    language=tex,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},   
+    commentstyle=\color{gray},  
+    stringstyle=\color{red},   
+    frame=single,               
+    breaklines=true,            
+    captionpos=b,               
+}
+
+\renewcommand{\lstlistingname}{Código}
+
+\lstset{
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+             {ã}{{\~a}}1 {õ}{{\~o}}1 {â}{{\^a}}1 {ê}{{\^e}}1 {ô}{{\^o}}1
+             {À}{{\`A}}1 {à}{{\`a}}1 {ü}{{\"u}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+             {ö}{{\"o}}1
+}
+
+\usepackage{setspace}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{hyperref}
+
+\definecolor{mylinkcolor}{HTML}{2D4802}  % Cor dos links internos
+\definecolor{mycitecolor}{HTML}{8EB12D}  % Cor das citações
+\definecolor{myurlcolor}{HTML}{638204}   % Cor dos links de URL
+
+\hypersetup{
+  linkcolor  = mylinkcolor, % Links internos (sumário, referências, etc.)
+  citecolor  = mycitecolor, % Citações (quando usa \cite)
+  urlcolor   = myurlcolor,  % Links externos
+  colorlinks = true,        % Ativa cores nos links
+}
+
+\usepackage{cleveref}
+\usepackage{filecontents}
+\usepackage{fontawesome5}
+\usetikzlibrary{shadows.blur} % Efeito de sombra
+\usepackage{varwidth}
+
+% --------------------------------------------------------
+% ------------------------ CITAÇÕES ----------------------
+% --------------------------------------------------------
+
+% Comando para citação de abertura de capítulo com autor
+\newcommand{\chapterquote}[2]{
+  \begin{center}
+    \small\textit{#1} \\ % A citação
+    \vspace{0.5em} % Espaço entre a citação e o autor
+    \small\textsc{--- #2} % O autor em small caps
+  \end{center}
+  \vspace{1em} % Espaçamento após a citação
+}
+
+% --------------------------------------------------------
+% ------------------------ AMBIENTES ---------------------
+% --------------------------------------------------------
+
+% Contadores para cada tipo de ambiente
+\newcounter{exercisecounter}
+\newcounter{solutioncounter}
+
+\newtcolorbox[auto counter]{exercisebox}[1][]{%
+    beamer,
+    enhanced, breakable, colback=white, % cor de fundo branca
+    arc=5pt, outer arc=5pt,
+    boxrule=0.5pt, colframe=black, % borda
+    fontlower=\itshape,
+    before=\vspace{2mm}, after=\vspace{2mm}, % Adiciona margem superior e inferior
+    title={\small Questão~\thetcbcounter. #1}, % Adiciona o título com o contador e texto manual
+    coltitle=white, % Define a cor do título para preto
+}
+
+\newtcolorbox[auto counter]{solutionbox}[1][]{%
+	beamer,
+    enhanced, breakable, colback=gray!10, colframe=gray!10,
+    arc=10pt, outer arc=10pt,
+    boxrule=0pt,
+    before=\vspace{2mm}, after=\vspace{2mm},
+    title={\small \textsc{Solução~\thetcbcounter}},
+    coltitle=black, % Adiciona o título com o contador
+    #1
+}
+
+\newtcolorbox{highlightbox}[1][]{%
+	beamer,
+    enhanced, breakable, colback=gray!10, colframe=gray!10, % cor de fundo atualizada para gray!10
+    arc=0pt, outer arc=0pt,
+    boxrule=0pt,
+    before=\vspace{2mm}, after=\vspace{2mm},
+    fonttitle=\bfseries\scshape, % Define o título em negrito e small caps
+    coltitle=black, % Define a cor do título como preta
+    #1}
+
+% --------------------------------------------------------
+% ------------------------ SUMÁRIO ---------------------
+% --------------------------------------------------------
+
+\addto\captionsportuguese{
+  \renewcommand{\contentsname}{\hfill\bfseries\huge Sumário \hfill}   
+}
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\huge}
+\renewcommand{\cftaftertoctitle}{\hfill\break\vspace{10pt}}
+
+% Define o símbolo de quadrado preenchido
+\newcommand{\filledsquare}{{\tikz{\node[fill=black,rectangle,minimum size=0.2cm] {};}}\hspace{0.5em}}
+
+% Títulos de capítulos em negrito no sumário com o símbolo
+\renewcommand{\cftchapfont}{\bfseries\large\filledsquare}
+
+\begin{document}
+
+% Primeira página com a imagem como background
+\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{capa.png}} % Substitua "capa.png" pelo nome real do arquivo da imagem
+\begin{titlepage}
+    \null % Adiciona um espaço vazio para que a imagem possa ser exibida corretamente
+\end{titlepage}
+\ClearShipoutPictureBG % Limpa o background da próxima página
+
+\clearpage % Começa uma nova página para o conteúdo do livro
+
+\thispagestyle{empty} % No page number on this page
+\centering
+
+\vspace{1cm} % Ajuste o espaço conforme necessário
+
+{\Large\bfseries\textsc{\MakeUppercase{The Overleafify Project}}}\\[1cm]
+
+{\large\textsc{Felipe Silva \& Yuri Thadeu}}\\
+{IEEE}\\[20mm]  
+\flushleft
+\begin{minipage}{\textwidth}
+\textsc{Resumo.} Este livro é um guia prático e acessível para iniciantes no uso do LaTeX e do Overleaf, ferramentas essenciais para a produção de documentos acadêmicos e técnicos de alta qualidade. Abordamos desde os conceitos básicos, como a estrutura de documentos e formatação de texto, até tópicos avançados, incluindo a criação de tabelas, inserção de imagens, expressões matemáticas, bibliografias e gráficos. Além disso, exploramos a criação de apresentações profissionais com o Beamer e a personalização de layouts para atender às necessidades específicas de cada projeto. Com exemplos práticos, exercícios e dicas úteis, este guia visa capacitar os novos ingressantes a dominar essas ferramentas de forma eficiente, tornando a documentação científica mais clara, organizada e esteticamente atraente.
+\end{minipage}\\[1cm]   
+\vfill
+    \begin{center}
+    	\textit{Copyright \copyright 2025, IEEE.}
+    \end{center}
+    \begin{center}
+    	\textit{Este livro é distribuído sob uma licença aberta. A cópia, reprodução e compartilhamento são permitidos, desde que sejam mantidos os créditos aos autores.}
+    \end{center}
+\clearpage % Assegura que a próxima seção comece em uma nova página
+
+\clearpage
+\setcounter{page}{1} % Reseta o contador de páginas para o conteúdo principal
+
+\thispagestyle{empty}
+\tableofcontents
+
+\include{prefacio}
+\include{cap1}
+\include{cap2}
+\include{cap3}
+\include{cap4}
+\include{cap5}
+\include{cap6}
+\include{cap7}
+\include{cap8}
+
+\end{document}

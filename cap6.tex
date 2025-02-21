@@ -1,0 +1,82 @@
+\chapter{Bibliografia e citações em LaTeX}
+
+\chapterquote{``Citação.''}{Autor}
+
+% --------
+
+\section{Introdução ao gerenciamento de referências}
+
+O LaTeX oferece ferramentas poderosas para criar e gerenciar referências bibliográficas de forma automatizada, garantindo consistência e padronização em documentos acadêmicos.
+
+\section{Citações básicas}
+
+Use o comando \verb|\cite{citação}| para citar uma referência.
+
+\begin{lstlisting}[language=tex, caption=Exemplo simples de citação]
+    Segundo \cite{einstein}, a teoria da relatividade...
+\end{lstlisting}
+
+\section{Criando uma bibliografia manual}
+
+Para documentos pequenos, use o ambiente \verb|thebibliography|:
+
+\begin{lstlisting}[language=tex, caption=Equação inline]
+    \begin{thebibliography}{9} % O número 9 indica a largura máxima de rótulos
+        \bibitem{einstein}  
+            Einstein, A. (1905).  
+            \textit{Zur Elektrodynamik bewegter Körper}.  
+            Annalen der Physik, 17(10), 891–921.  
+    \end{thebibliography}
+\end{lstlisting}
+
+\section{Usando o BibTeX (Recomendado)}
+
+O \textbf{BibTeX} automatiza a criação de bibliografias. Siga os passos:
+
+\begin{enumerate}
+    \item Crie um arquivo \verb|.bib| (ex: \verb|referencias.bib|) com entradas no formato:
+    \begin{lstlisting}[language=tex, caption=Exemplo de formatação em um arquivo \texttt{.bib}]
+    @article{einstein1905,
+        author  = "Albert Einstein",
+        title   = "Zur Elektrodynamik bewegter Körper",
+        journal = "Annalen der Physik",
+        year    = "1905",
+        volume  = "322",
+        pages   = "891--921"
+    }
+    \end{lstlisting}
+
+    \item Inclua o arquivo no documento:
+    \begin{lstlisting}[language=tex, caption=Incluindo o arquivo de bibliografias no documento]
+    \bibliographystyle{plain} % Estilo (ex: abnt, ieee, apa)
+    \bibliography{referencias} % Nome do arquivo .bib (sem extensão)
+    \end{lstlisting}
+\end{enumerate}
+
+\section{Estilos de citação}
+
+Altere o estilo com \verb|\bibliographystyle|:
+
+\begin{itemize}
+    \item \verb|plain|: Numérico (padrão).
+    \item \verb|abnt|: Normas ABNT (requer o pacote \verb|abntex2|).
+    \item \verb|apa|: Formato APA.
+    \item \verb|ieee|: Padrão IEEE.
+\end{itemize}
+
+\begin{lstlisting}[language=tex, caption=Definindo o estilo da bibliografia]
+    \bibliographystyle{ieee}  
+    \bibliography{referencias}  
+\end{lstlisting}
+
+\section{Dicas práticas}
+\begin{itemize}
+    \item \textbf{Zotero + Better BibTeX}: Exporte referências diretamente para \verb|.bib|.
+    \item \textbf{JabRef}: Editor gratuito para gerenciar arquivos \verb|.bib|.
+    \item \textbf{DOI para BibTeX}: Sites como \href{https://www.doi2bib.org/}{doi2bib} convertem DOIs em entradas BibTeX.
+    \item Erros comuns:
+    \begin{itemize}
+        \item Referência não aparece: Verifique se a chave em \verb|\cite{citação}| corresponde à entrada no arquivo \verb|.bib|.
+        \item Estilo incorreto: Confira se o estilo desejado e adequado está instalado.
+    \end{itemize}
+\end{itemize}
